@@ -59,7 +59,7 @@ def softmax(x):
     return softmax_x
 
 def sort_results(e):
-    return e[R_CONFIDENCE]
+    return e[R_CONFIDENCE_C]
 
 def check_result(data):
     results = []
@@ -74,14 +74,14 @@ def check_result(data):
                 confidence = expit(item[offset+4])
                 
                 classes = item[offset+5+0:offset+5+NUM_CLASSES]
-                softmax(classes);
+                classes = softmax(classes);
                 
                 detected_class = np.argmax(classes)
                 max_class = classes[detected_class]
                 
                 confidence_in_class = max_class * confidence;
                 
-                if confidence > THRESHOLD:
+                if confidence_in_class > THRESHOLD:
                     x_pos = (column + expit(item[offset+0])) * BLOCK_SIZE;
                     y_pos = (row + expit(item[offset+1])) * BLOCK_SIZE;
                     w = (np.exp(item[offset+2]) * ANCHORS[box][0]) * BLOCK_SIZE
@@ -215,7 +215,7 @@ def main():
         x_points, y_points = arrange_point(predictions[i])
         plt.plot(x_points, y_points, linestyle='-',color=colors[i%2], linewidth=1)
         
-        hint = '%s %0.2f' % (predictions[i][R_CLASS], predictions[i][R_CONFIDENCE])
+        hint = '%s %0.2f' % (predictions[i][R_CLASS], predictions[i][R_CONFIDENCE_C])
         plt.text(x_points[0], y_points[0] - 4, hint)
     
     plt.show()
