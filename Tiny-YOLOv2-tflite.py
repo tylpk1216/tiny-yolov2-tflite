@@ -18,8 +18,8 @@ BLOCK_SIZE = 32
 NUM_BOXES_PER_BLOCK = 5
 NUM_CLASSES = 80
 
-THRESHOLD = 0.5
-OVERLAP_THRESHOLD = 0.3
+THRESHOLD = 0.6
+OVERLAP_THRESHOLD = 0.2
 
 ANCHORS = [
     [0.57273, 0.677385], 
@@ -98,18 +98,14 @@ def check_result(data):
     
     #sys.exit()
     
-    # NMS?
+    # Non-maximal suppression
     results.sort(reverse=True, key=sort_results)
     
     predictions = []
     best_prediction = results.pop(0)
     predictions.append(best_prediction)
     
-    i = 0
-    while True:
-        if i >= len(results):
-            break
-        
+    while len(results) != 0:
         prediction = results.pop(0)
         overlaps = False
         
@@ -133,9 +129,7 @@ def check_result(data):
         
         if overlaps == False:
             predictions.append(prediction);
-        
-        i = i + 1
-        
+            
     for i in range(len(predictions)):
         print(predictions[i])
     return predictions
@@ -215,7 +209,7 @@ def main():
         x_points, y_points = arrange_point(predictions[i])
         plt.plot(x_points, y_points, linestyle='-',color=colors[i%2], linewidth=1)
         
-        hint = '%s %0.2f' % (predictions[i][R_CLASS], predictions[i][R_CONFIDENCE_C])
+        hint = '%s %0.2f' % (predictions[i][R_CLASS], round(predictions[i][R_CONFIDENCE_C], 2))
         plt.text(x_points[0], y_points[0] - 4, hint)
     
     plt.show()
