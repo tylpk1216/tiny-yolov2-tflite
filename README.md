@@ -14,3 +14,4 @@ Windows 10 + TensorFlow 1.15.0
 
 ## Todo
 Do NMS by every class.
+(I am not sure this is necessary step?)
