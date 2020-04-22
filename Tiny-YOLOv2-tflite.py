@@ -96,7 +96,8 @@ def check_result(data):
                     print(msg)
                     results.append([left, top, right, bottom, confidence_in_class, confidence, COCO_CLASSES[detected_class]])   
     
-    #sys.exit()
+    if len(results) == 0:
+        return []
     
     # Non-maximal suppression
     results.sort(reverse=True, key=sort_results)
