@@ -12,10 +12,6 @@ COCO, 80 classes
 ## Test Environment
 Windows 10 + TensorFlow 1.15.0
 
-## Todo
-Do NMS by every class.
-(I am not sure this is necessary step?)
-
 ## Acknowledgement
 - https://medium.com/@amrokamal_47691/yolo-yolov2-and-yolov3-all-you-want-to-know-7e3e92dc4899 (Good document)
 - https://pjreddie.com/darknet/yolov2/ (Developer)
